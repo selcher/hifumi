@@ -93,8 +93,12 @@ controller.hears(['attachment'], ['direct_message', 'direct_mention'], function 
 
 // Message: Gif
 controller.hears('gif', ['direct_message', 'direct_mention'], function (bot, message) {
-  console.log('gif:', JSON.stringify(message))
-  gifSearch.random('cat').then(
+  var txtList = message.text.split(' ')
+  var words = txtList.slice(1).join(' ')
+
+  console.log('Gif search:', words)
+
+  gifSearch.random(words).then(
       function(gifUrl) {
         bot.reply(message, gifUrl)
       }
