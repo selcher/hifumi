@@ -23,6 +23,7 @@
   "homepage": "https://github.com/selcher/hifumi",
   "dependencies": {
     "beepboop-botkit": "^1.4.1",
-    "botkit": "~0.2.2"
+    "botkit": "~0.2.2",
+    "gif-search": "^2.0.0"
   }
 }

@@ -1,4 +1,5 @@
 var Botkit = require('botkit')
+var gifSearch = require('gif-search')
 
 var token = process.env.SLACK_TOKEN
 
@@ -29,17 +30,24 @@ if (token) {
   require('beepboop-botkit').start(controller, { debug: true })
 }
 
-// Event listeners
+/**
+ * Event listeneres
+ */
 controller.on('bot_channel_join', function (bot, message) {
   bot.reply(message, "I'm here!")
 })
 
 controller.on('slash_command', function(bot, message) {
+  // TODO: Check 500 service error
   console.log('Slash command received', message)
-  bot.replyPrivate(message, 'command received')
+  bot.reply(message, 'command received')
 })
 
-// Message listeneres
+/**
+ * Message listeneres
+ */
+
+// Message: hello
 controller.hears(['hello', 'hi'], ['direct_mention'], function (bot, message) {
   bot.reply(message, 'Hello.')
 })
@@ -53,6 +61,7 @@ controller.hears('.*', ['mention'], function (bot, message) {
   bot.reply(message, 'You really do care about me. :heart:')
 })
 
+// Message: help
 controller.hears('help', ['direct_message', 'direct_mention'], function (bot, message) {
   var help = 'I will respond to the following messages: \n' +
       '`bot hi` for a simple message.\n' +
@@ -62,6 +71,7 @@ controller.hears('help', ['direct_message', 'direct_mention'], function (bot, me
   bot.reply(message, help)
 })
 
+// Message: Attachment
 controller.hears(['attachment'], ['direct_message', 'direct_mention'], function (bot, message) {
   var text = 'Attachment'
   var attachments = [{
@@ -81,6 +91,17 @@ controller.hears(['attachment'], ['direct_message', 'direct_mention'], function 
   })
 })
 
+// Message: Gif
+controller.hears('gif', ['direct_message', 'direct_mention'], function (bot, message) {
+  console.log('gif:', JSON.stringify(message))
+  gifSearch.random('cat').then(
+      function(gifUrl) {
+        bot.reply(message, gifUrl)
+      }
+  )
+})
+
+// Message: Default
 controller.hears('.*', ['direct_message', 'direct_mention'], function (bot, message) {
   bot.reply(message, 'Sorry <@' + message.user + '>, I don\'t understand. \n')
 })
