@@ -1,2 +1,2 @@
 # hifumi
-A Slack Bot
+New Bot for Slack

@@ -1,0 +1,28 @@
+{
+  "name": "hifumi",
+  "version": "1.0.0",
+  "description": "New Bot for Slack",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/selcher/hifumi.git"
+  },
+  "keywords": [
+    "slackbot",
+    "bot",
+    "slack"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/selcher/hifumi/issues"
+  },
+  "homepage": "https://github.com/selcher/hifumi",
+  "dependencies": {
+    "beepboop-botkit": "^1.4.1",
+    "botkit": "~0.2.2"
+  }
+}
