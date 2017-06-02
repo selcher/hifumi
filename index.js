@@ -8,7 +8,8 @@ var controller = Botkit.slackbot({
   debug: false
 })
 
-// Assume single team mode if we have a SLACK_TOKEN
+// Assume single team mode
+// if we have a SLACK_TOKEN
 if (token) {
   console.log('Starting in single-team mode')
   controller.spawn({
@@ -21,16 +22,32 @@ if (token) {
 
     console.log('Connected to Slack RTM')
   })
-// Otherwise assume multi-team mode - setup beep boop resourcer connection
+// Otherwise assume multi-team mode
+// setup beep boop resourcer connection
 } else {
   console.log('Starting in multi-team mode')
   require('beepboop-botkit').start(controller, { debug: true })
 }
 
+// Event listeners
 controller.on('bot_channel_join', function (bot, message) {
   bot.reply(message, "I'm here!")
 })
 
+controller.on('slash_command', function(bot, message) {
+  switch (message.command) {
+    case 'hello':
+      bot.reply(message, 'Hello')
+      break;
+    case 'gif':
+      bot.reply(message, 'gif')
+      break;
+    default:
+      bot.reply(message, 'Command not found')
+  }
+})
+
+// Message listeneres
 controller.hears(['hello', 'hi'], ['direct_mention'], function (bot, message) {
   bot.reply(message, 'Hello.')
 })
