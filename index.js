@@ -35,16 +35,8 @@ controller.on('bot_channel_join', function (bot, message) {
 })
 
 controller.on('slash_command', function(bot, message) {
-  switch (message.command) {
-    case 'hello':
-      bot.reply(message, 'Hello')
-      break;
-    case 'gif':
-      bot.reply(message, 'gif')
-      break;
-    default:
-      bot.reply(message, 'Command not found')
-  }
+  console.log('Slash command received', message)
+  bot.replyPrivate(message, 'command received')
 })
 
 // Message listeneres
